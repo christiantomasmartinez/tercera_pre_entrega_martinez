@@ -6,9 +6,11 @@ from django.shortcuts import render, redirect
 from inicio.forms import CreacionCompradorFormulario, CreacionVendedorFormulario, CreacionVehiculoFormulario, BuscarAuto
 
 
+# def registro_exitoso(request):
+#     return render(request, 'inicio/registro_exitoso.html')
+
 def mi_vista(request):
     return render(request, 'inicio/index.html')
-
 
 def saludar(request, nombre, apellido):
     return HttpResponse(f'<h1>Hola {nombre} {apellido}</h1>')
