@@ -8,7 +8,7 @@ class CreacionCompradorFormulario(forms.Form):
 class CreacionVendedorFormulario(forms.Form):
     nombre = forms.CharField(max_length=20)
     apellido = forms.CharField(max_length=20)
-    cantidad_ventas = forms.DateField()
+    meses_de_contrato = forms.IntegerField()
     
 class CreacionVehiculoFormulario(forms.Form):
     modelo = forms.CharField(max_length=20)

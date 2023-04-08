@@ -6,22 +6,9 @@ from django.shortcuts import render, redirect
 from inicio.forms import CreacionCompradorFormulario, CreacionVendedorFormulario, CreacionVehiculoFormulario, BuscarAuto
 
 
-# def registro_exitoso(request):
-#     return render(request, 'inicio/registro_exitoso.html')
 
 def mi_vista(request):
     return render(request, 'inicio/index.html')
-
-def saludar(request, nombre, apellido):
-    return HttpResponse(f'<h1>Hola {nombre} {apellido}</h1>')
-
-def mi_primer_template(request):
-    template = loader.get_template(r"inicio/mi_primer_template.html")
-    variable = "padifugbadfiu"
-    datos = {"ej":variable}
-    template_renderizado = template.render(datos)
-    return HttpResponse(template_renderizado)
-
 
 def mostrar_fecha(request):
     dt = datetime.now()
@@ -31,21 +18,6 @@ def mostrar_fecha(request):
     datos = {'fecha': dt_formateado}
     template_renderizado = template.render(datos)
     
-    return HttpResponse(template_renderizado)
-    
-def prueba_template(request):
-    
-    datos = {
-        'nombre': 'Pepito',
-        'apellido': 'Grillo',
-        'edad': 14,
-        'anios': [
-            1995, 2004, 2014, 2017, 2021, 2022
-        ]
-    }
-    
-    template = loader.get_template(r'inicio/prueba_template.html')
-    template_renderizado = template.render(datos)
     return HttpResponse(template_renderizado)
 
 def registrar_comprador(request):
@@ -63,6 +35,22 @@ def registrar_comprador(request):
     
     formulario = CreacionCompradorFormulario()
     return render(request, 'inicio/registrar_comprador.html', {'formulario': formulario})
+
+def registrar_vendedor(request):
+    
+    if request.method == "POST":
+        formulario = CreacionVendedorFormulario(request.POST)
+        
+        if formulario.is_valid():
+            datos_correctos = formulario.cleaned_data
+        
+            vendedor = Vendedor(nombre=datos_correctos['nombre'], apellido=datos_correctos['apellido'], meses_de_contrato=datos_correctos["meses_de_contrato"])
+            vendedor.save()
+
+            return redirect('inicio:registrar_vendedor')
+    
+    formulario = CreacionVendedorFormulario()
+    return render(request, 'inicio/registrar_vendedor.html', {'formulario': formulario})
 
 # def lista_animales(request):
 #     nombre_a_buscar = request.GET.get('nombre', None)

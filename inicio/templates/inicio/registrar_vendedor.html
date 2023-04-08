@@ -1,7 +1,7 @@
 {% extends 'genericos/base.html' %}
 
 {% block title_head %}
-<title>Registrar Comprador</title>
+<title>Registrar vendedor</title>
 {% endblock title_head %}
 
 {% block h1_header %}
@@ -10,10 +10,10 @@
 
 
 {% block contenido %}
-<form action={% url 'inicio:registrar_comprador' %} method="POST">
+<form action={% url 'inicio:registrar_vendedor' %} method="POST">
     {% csrf_token %}
     <table>
-        <h1>Registro exitoso.</h1>
+        {{formulario}}
     </table>
     {% comment %} <input type="submit" value="Crear"> {% endcomment %}
     <button>Crear</button>
