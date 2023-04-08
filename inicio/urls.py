@@ -5,7 +5,8 @@ app_name = 'inicio'
 
 urlpatterns = [
     path('', views.mi_vista, name='inicio'),
-    path('mostrar-fecha/', views.mostrar_fecha, name='mostrar_fecha'),
     path('registrar-comprador/', views.registrar_comprador, name='registrar_comprador'),
     path('registrar-vendedor/', views.registrar_vendedor, name='registrar_vendedor'),
+    path('registrar-vehiculo/', views.registrar_vehiculo, name='registrar_vehiculo'),
+    path('lista-vehiculo/', views.lista_vehiculos, name='lista_vehiculos'),
  ]

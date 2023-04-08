@@ -10,16 +10,6 @@ from inicio.forms import CreacionCompradorFormulario, CreacionVendedorFormulario
 def mi_vista(request):
     return render(request, 'inicio/index.html')
 
-def mostrar_fecha(request):
-    dt = datetime.now()
-    dt_formateado = dt.strftime("%A %d %B %Y %I:%M")
-    template = loader.get_template(r'inicio/mostrar_fecha.html')
-    
-    datos = {'fecha': dt_formateado}
-    template_renderizado = template.render(datos)
-    
-    return HttpResponse(template_renderizado)
-
 def registrar_comprador(request):
     
     if request.method == "POST":
@@ -50,19 +40,30 @@ def registrar_vendedor(request):
             return redirect('inicio:registrar_vendedor')
     
     formulario = CreacionVendedorFormulario()
-    return render(request, 'inicio/registrar_vendedor.html', {'formulario': formulario})
+    return render(request, 'inicio/registrar_vendedor.html', {'formulario': formulario}) 
 
-# def lista_animales(request):
-#     nombre_a_buscar = request.GET.get('nombre', None)
+def registrar_vehiculo(request):
     
-#     if nombre_a_buscar:
-#         animales = Animal.objects.filter(nombre__icontains=nombre_a_buscar)
-#     else:
-#         animales = Animal.objects.all()
-#     formulario_busqueda = BuscarAnimal()
-#     return render(request, 'inicio/lista_animales.html', {'animales': animales, 'formulario': formulario_busqueda})
+    if request.method == "POST":
+        formulario = CreacionVehiculoFormulario(request.POST)
+        
+        if formulario.is_valid():
+            datos_correctos = formulario.cleaned_data
+        
+            vehiculo = Vehiculo(modelo=datos_correctos['modelo'], marca=datos_correctos['marca'], kilometraje=datos_correctos["kilometraje"])
+            vehiculo.save()
 
-# def prueba_render(request):
-#     datos = {'nombre': 'Pepe'}
-#     return render(request, r'inicio/prueba_render.html', datos)
+            return redirect('inicio:registrar_vehiculo')
     
+    formulario = CreacionVehiculoFormulario()
+    return render(request, 'inicio/registrar_vehiculo.html', {'formulario': formulario})
+
+def lista_vehiculos(request):
+    modelo_a_buscar = request.GET.get('modelo', None)
+
+    if modelo_a_buscar:
+        vehiculo = Vehiculo.objects.filter(modelo__icontains=modelo_a_buscar)
+    else:
+        vehiculo = Vehiculo.objects.all()
+    formulario_busqueda = BuscarAuto()
+    return render(request, 'inicio/lista_vehiculos.html', {'vehiculos': vehiculo, 'formulario': formulario_busqueda})

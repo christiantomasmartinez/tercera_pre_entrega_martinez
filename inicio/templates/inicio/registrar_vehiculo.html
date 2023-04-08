@@ -1,20 +1,20 @@
 {% extends 'genericos/base.html' %}
 
 {% block title_head %}
-<title>Registrar comprador</title>
+<title>Agregar vehiculo al listado</title>
 {% endblock title_head %}
 
 {% block h1_header %}
-<h1>Registre los datos</h1>
+<h1>Agregue el vehiculo</h1>
 {% endblock h1_header %}
 
 
 {% block contenido %}
-<form action={% url 'inicio:registrar_comprador' %} method="POST">
+<form action={% url 'inicio:registrar_vehiculo' %} method="POST">
     {% csrf_token %}
     <table>
         {{formulario}}
     </table>
-    <button>Registrar</button>
+    <button>Agregar vehiculo</button>
 </form>
 {% endblock contenido %}
