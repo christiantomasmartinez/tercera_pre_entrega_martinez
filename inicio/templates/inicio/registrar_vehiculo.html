@@ -10,7 +10,7 @@
 
 
 {% block contenido %}
-<form action={% url 'inicio:registrar_vehiculo' %} method="POST">
+<form action={% url 'inicio:registro_exitoso' %} method="POST">
     {% csrf_token %}
     <table>
         {{formulario}}

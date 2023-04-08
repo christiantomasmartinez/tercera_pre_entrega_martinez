@@ -1,4 +1,3 @@
-from datetime import datetime
 from django.http import HttpResponse
 from django.template import Template, Context, loader
 from inicio.models import Vendedor, Comprador, Vehiculo
@@ -67,3 +66,6 @@ def lista_vehiculos(request):
         vehiculo = Vehiculo.objects.all()
     formulario_busqueda = BuscarAuto()
     return render(request, 'inicio/lista_vehiculos.html', {'vehiculos': vehiculo, 'formulario': formulario_busqueda})
+
+def registro_exitoso(request):
+    return render(request, 'inicio/registro_exitoso.html')
